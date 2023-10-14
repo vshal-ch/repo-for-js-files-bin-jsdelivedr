@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bin Parts</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+          "orbitcontrols": "https://unpkg.com/three@0.157.0/examples/jsm/controls/OrbitControls.js",
+          "measurements": "./js/measurements.js",
+          "sidepart": "./js/sidepart.js",
+          "bottompart": "./js/bottompart.js",
+          "frontpart": "./js/frontpart.js",
+          "backpart": "./js/backpart.js",
+          "whole": "./js/whole.js"
+        }
+      }
+    </script>
+    <script src="./js/canvas2svg.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <div class="form-container flex-item">
+        <div class="title-row">
+          <h2 class="form-title">Select Measurements</h2>
+          <div for="type" class="switch">
+            <input
+              type="checkbox"
+              name="type"
+              id="type"
+              class="type-checkbox"
+              hidden
+            />
+            <label for="type" class="switch-label"> </label>
+          </div>
+        </div>
+        <form class="form">
+          <div class="field-container">
+            <label for="length">Length<span class="units">(in)</span></label>
+            <input
+              type="number"
+              name="length"
+              id="length"
+              class="input-field"
+              value="20"
+            />
+          </div>
+          <div class="field-container">
+            <label for="breadth">Width<span class="units">(in)</span></label>
+            <input
+              type="number"
+              name="breadth"
+              id="breadth"
+              class="input-field"
+              value="10"
+            />
+          </div>
+          <div class="field-container">
+            <label for="depth">Height<span class="units">(in)</span></label>
+            <input
+              type="number"
+              name="depth"
+              id="depth"
+              class="input-field"
+              value="10"
+            />
+          </div>
+          <div class="field-container">
+            <label for="thickness"
+              >Thickness<span class="units">(in)</span></label
+            >
+            <input
+              type="number"
+              name="thickness"
+              id="thickness"
+              class="input-field"
+              value="0.5"
+              step="0.1"
+            />
+          </div>
+          <button type="submit" class="submit-button">Download SVG</button>
+        </form>
+      </div>
+      <div class="canvas-container flex-item">
+        <canvas class="canvas"></canvas>
+      </div>
+    </main>
+    <script src="./js/script.js" type="module"></script>
+  </body>
+</html>
