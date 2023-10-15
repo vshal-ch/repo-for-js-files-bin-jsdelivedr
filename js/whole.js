@@ -8,12 +8,21 @@ import FrontPart from "frontpart";
 export default class Bin {
   initialize = (_) => {
     // Measurements.setInches(0.5);
+    _.SVG_GAP = _.SVG_SCALE * 3;
     this.svgCtx = new C2S(
-      _.DEPTH * 4 + _.BREADTH * 2 + 200,
-      _.DEPTH * 4 + _.LENGTH * 2 + 150
+      _.DEPTH * 4 * _.SVG_SCALE +
+        _.BREADTH * 2 * _.SVG_SCALE +
+        200 +
+        2 * _.SVG_GAP,
+      _.DEPTH * 4 * _.SVG_SCALE +
+        _.LENGTH * 2 * _.SVG_SCALE +
+        150 +
+        2 * _.SVG_GAP
     );
     this.svgCtx.strokeStyle = "#222222";
     this.svgCtx.strokeWidth = 0.5;
+    this.svgCtx.gap = _.SVG_GAP;
+    this.svgCtx.scale = _.SVG_SCALE;
 
     this.draw(_);
     this.#createGroup();
@@ -63,8 +72,9 @@ export default class Bin {
         ctx: this.svgCtx,
         position: {
           x: this.svgCtx.width / 2,
-          y: 75 + _.DEPTH,
+          y: 75 + _.DEPTH * this.svgCtx.scale,
         },
+        scale: this.svgCtx.scale,
       }
     );
     this.backPartMesh = this.backPart.createMesh();
@@ -95,8 +105,14 @@ export default class Bin {
         ctx: this.svgCtx,
         position: {
           x: this.svgCtx.width / 2,
-          y: 75 + 2 * _.DEPTH + _.LENGTH + _.THICKNESS * 2 + 10,
+          y:
+            75 +
+            2 * _.DEPTH * this.svgCtx.scale +
+            _.LENGTH * this.svgCtx.scale +
+            _.THICKNESS * 2 * this.svgCtx.scale +
+            this.svgCtx.gap,
         },
+        scale: this.svgCtx.scale,
       }
     );
     this.bottomPartMesh = this.bottomPart.createMesh();
@@ -122,14 +138,33 @@ export default class Bin {
         ctx: this.svgCtx,
         position: [
           {
-            x: this.svgCtx.width / 2 - _.BREADTH - _.DEPTH - 10,
-            y: 75 + 2 * _.DEPTH + _.LENGTH + _.THICKNESS * 2 + 10,
+            x:
+              this.svgCtx.width / 2 -
+              _.BREADTH * this.svgCtx.scale -
+              _.DEPTH * this.svgCtx.scale -
+              this.svgCtx.gap,
+            y:
+              75 +
+              2 * this.svgCtx.scale * _.DEPTH +
+              _.LENGTH * this.svgCtx.scale +
+              _.THICKNESS * 2 * this.svgCtx.scale +
+              this.svgCtx.gap,
           },
           {
-            x: this.svgCtx.width / 2 + _.BREADTH + _.DEPTH + 10,
-            y: 75 + 2 * _.DEPTH + _.LENGTH + _.THICKNESS * 2 + 10,
+            x:
+              this.svgCtx.width / 2 +
+              _.BREADTH * this.svgCtx.scale +
+              _.DEPTH * this.svgCtx.scale +
+              this.svgCtx.gap,
+            y:
+              75 +
+              2 * this.svgCtx.scale * _.DEPTH +
+              _.LENGTH * this.svgCtx.scale +
+              _.THICKNESS * 2 * this.svgCtx.scale +
+              this.svgCtx.gap,
           },
         ],
+        scale: this.svgCtx.scale,
       }
     );
 
@@ -172,8 +207,15 @@ export default class Bin {
         ctx: this.svgCtx,
         position: {
           x: this.svgCtx.width / 2,
-          y: 75 + 2 * _.DEPTH + 2 * _.LENGTH + hypotenuse + 20,
+          y:
+            75 +
+            2 * this.svgCtx.scale * _.DEPTH +
+            2 * this.svgCtx.scale * _.LENGTH +
+            hypotenuse * this.svgCtx.scale +
+            this.svgCtx.gap * 2 +
+            10,
         },
+        scale: this.svgCtx.scale,
       }
     );
 
@@ -181,10 +223,10 @@ export default class Bin {
     this.frontPartMesh.position.set(
       0,
       -_.LENGTH / 2 - height / 2,
-      _.DEPTH / 4 + _.THICKNESS + _.TRENCH_OFFSET
+      _.DEPTH / 4 + _.THICKNESS
     );
     this.frontPartMesh.rotation.set(
-      this.#radians(90 + _.FRONT_ANGLE),
+      this.#radians(90 + _.FRONT_ANGLE-1),
       this.#radians(0),
       this.#radians(0)
     );

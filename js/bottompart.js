@@ -63,8 +63,8 @@ export default class BottomPart {
       let x = this.center.x + move[0][0];
       let y = this.center.y + move[0][1];
 
-      let svgX = this.svg.position.x + 2 * move[0][0];
-      let svgY = this.svg.position.y - 2 * move[0][1];
+      let svgX = this.svg.position.x + 2 * this.svg.scale * move[0][0];
+      let svgY = this.svg.position.y - 2 * this.svg.scale * move[0][1];
 
       temp.moveTo(x, y);
       this.svg.ctx.moveTo(svgX, svgY);
@@ -73,8 +73,8 @@ export default class BottomPart {
         y = y + move[i][1];
         temp.lineTo(x, y);
 
-        svgX = svgX + 2 * move[i][0];
-        svgY = svgY -  2 * move[i][1];
+        svgX = svgX + 2 * this.svg.scale * move[i][0];
+        svgY = svgY - 2 * this.svg.scale * move[i][1];
         this.svg.ctx.lineTo(svgX, svgY);
       }
       shape.push(temp);

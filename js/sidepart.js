@@ -72,25 +72,32 @@ export default class SidePart {
 
     this.svg.position.forEach((position, index) => {
       this.svg.ctx.beginPath();
-      let x = position.x - 2 * this.moves[0][0] * (index == 1 ? -1 : 1);
-      let y = position.y - 2 * this.moves[0][1];
+      let x =
+        position.x -
+        2 * this.svg.scale * this.moves[0][0] * (index == 1 ? -1 : 1);
+      let y = position.y - 2 * this.svg.scale * this.moves[0][1];
       this.svg.ctx.moveTo(x, y);
-      for (let i = 1; i < this.moves.length; i++) {
+      for (let i = 1; i < this.moves.length - 1; i++) {
         if (i == 3) {
           for (let j = 0; j < this.moves_for_svg.length; j++) {
-            x = x - 2 * this.moves_for_svg[j][0] * (index == 1 ? -1 : 1);
-            y = y - 2 * this.moves_for_svg[j][1];
+            x =
+              x -
+              2 *
+                this.svg.scale *
+                this.moves_for_svg[j][0] *
+                (index == 1 ? -1 : 1);
+            y = y - 2 * this.svg.scale * this.moves_for_svg[j][1];
             this.svg.ctx.lineTo(x, y);
           }
         } else {
-          x = x - 2 * this.moves[i][0] * (index == 1 ? -1 : 1);
-          y = y - 2 * this.moves[i][1];
+          x = x - 2 * this.svg.scale * this.moves[i][0] * (index == 1 ? -1 : 1);
+          y = y - 2 * this.svg.scale * this.moves[i][1];
           this.svg.ctx.lineTo(x, y);
         }
       }
       this.svg.ctx.lineTo(
-        position.x - 2 * (this.moves[0][0] + 1) * (index == 1 ? -1 : 1),
-        position.y - 2 * this.moves[0][1]
+        position.x + this.depth * this.svg.scale * (index == 1 ? -1 : 1),
+        position.y - this.length * this.svg.scale - this.svg.scale * 0.3
       );
       this.svg.ctx.closePath();
       this.svg.ctx.stroke();

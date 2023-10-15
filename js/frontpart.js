@@ -42,9 +42,9 @@ export default class FrontPart {
   #createShape = () => {
     this.shape = new THREE.Shape();
     let x = this.center.x + this.moves[0][0];
-    let svgX = this.svg.position.x + 2 * this.moves[0][0];
+    let svgX = this.svg.position.x + 2 * this.svg.scale * this.moves[0][0];
     let y = this.center.y + this.moves[0][1];
-    let svgY = this.svg.position.y + 2 * this.moves[0][1];
+    let svgY = this.svg.position.y + 2 * this.svg.scale * this.moves[0][1];
 
     this.shape.moveTo(x, y);
     this.svg.ctx.moveTo(svgX, svgY);
@@ -53,8 +53,8 @@ export default class FrontPart {
       y = y + this.moves[i][1];
       this.shape.lineTo(x, y);
 
-      svgX = svgX + 2 * this.moves[i][0];
-      svgY = svgY + 2 * this.moves[i][1];
+      svgX = svgX + 2 * this.svg.scale * this.moves[i][0];
+      svgY = svgY + 2 * this.svg.scale * this.moves[i][1];
       this.svg.ctx.lineTo(svgX, svgY);
     }
     this.svg.ctx.closePath();

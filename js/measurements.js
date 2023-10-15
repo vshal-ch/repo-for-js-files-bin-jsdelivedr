@@ -8,6 +8,7 @@ export default class Measurements {
     BAR_OFFSET: 0.6,
     HOLE_OFFSET: 0.8,
     FRONT_ANGLE: 45,
+    SVG_SCALE: 10,
   };
 
   static setInches(field, value) {
@@ -30,8 +31,8 @@ export default class Measurements {
 
   static convert(value, toUnit) {
     return toUnit == "in"
-      ? (value * 0.0393701).toFixed(4)
-      : (value * 25.4).toFixed(4);
+      ? (value * 0.0393701).toFixed(3)
+      : (value * 25.4).toFixed(3);
   }
 
   static convertToBase(value, fromUnit) {
@@ -73,7 +74,7 @@ export default class Measurements {
         true,
         `Thickness should be less than ${(
           Math.min(length, breadth, depth) * 0.4
-        ).toFixed(4)}`,
+        ).toFixed(3)}`,
       ];
     }
     return [false];
