@@ -46,7 +46,28 @@ function render() {
 }
 requestAnimationFrame(render);
 
+function formatInput() {
+  let length = form["length"].value;
+  let breadth = form["breadth"].value;
+  let depth = form["depth"].value;
+  let thickness = form["thickness"].value;
+
+  let formatted = [length, breadth, depth, thickness].map((item) => {
+    let [before, after] = item.split(".");
+    if (after) {
+      return before + "." + (after.length > 3 ? after.substring(0, 3) : after);
+    } else {
+      return before;
+    }
+  });
+  form["length"].value = formatted[0];
+  form["breadth"].value = formatted[1];
+  form["depth"].value = formatted[2];
+  form["thickness"].value = formatted[3];
+}
+
 function handleInput() {
+  formatInput();
   let length = parseFloat(form["length"].value);
   let breadth = parseFloat(form["breadth"].value);
   let depth = parseFloat(form["depth"].value);
